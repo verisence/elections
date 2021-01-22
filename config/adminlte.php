@@ -236,12 +236,17 @@ return [
         ],
         [
             'text'        => 'Home',
-            'url'         => '/home',
+            'url'         => '/',
             'label'       => 4,
             'icon'       => 'fa fa-fw fa-home',
             'label_color' => 'success',
         ],
         ['header' => 'account_settings'],
+        [
+            'text' => 'Polling Stations',
+            'url'  => '/stations',
+            'icon' => 'fas fa-fw fa-map-marker',
+        ],
         [
             'text' => 'Agents',
             'url'  => '/agents',

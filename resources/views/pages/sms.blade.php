@@ -1,9 +1,9 @@
 @extends('welcome')
 
 @section('page-title')
-    <h1>Agents</h1>
+    <h1>Message to Voters</h1>
 @endsection
 
 @section('content')
-    <p>Here is all the relevant agent data.</p>
+    <p>Send SMS</p>
 @endsection

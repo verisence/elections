@@ -13,6 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('pages.dashboard');
-});
+// HOME
+Route::get('/', 'App\Http\Controllers\DashboardController@index');
+
+// STATIONS
+Route::get('/stations', 'App\Http\Controllers\StationController@index');
+
+// AGENTS
+Route::get('/agents', 'App\Http\Controllers\AgentsController@index');
+
+// VOTERS
+Route::get('/voters', 'App\Http\Controllers\VotersController@index');
+
+// SMS
+Route::get('/sms', 'App\Http\Controllers\MessageController@index');
