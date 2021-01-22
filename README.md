@@ -1,4 +1,4 @@
-# Egeza
+# Election
 This is a laravel application that can be used by an election candidate to manage their agents, voters and results
 
 # Contributors
