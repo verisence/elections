@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'App\Http\Controllers\DashboardController@index');
 
 // STATIONS
-Route::get('/stations', 'App\Http\Controllers\StationController@index');
+Route::get('/stations', 'App\Http\Controllers\StationsController@index');
 
 // AGENTS
 Route::get('/agents', 'App\Http\Controllers\AgentsController@index');
@@ -26,4 +26,4 @@ Route::get('/agents', 'App\Http\Controllers\AgentsController@index');
 Route::get('/voters', 'App\Http\Controllers\VotersController@index');
 
 // SMS
-Route::get('/sms', 'App\Http\Controllers\MessageController@index');
+Route::get('/sms', 'App\Http\Controllers\MessagesController@index');
