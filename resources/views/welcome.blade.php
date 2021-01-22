@@ -1,13 +1,17 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Election Dashboard')
+
 
 @section('content_header')
-    <h1>Dashboard</h1>
+    @yield('page-title')
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
+
+    <!-- yield the content -->
+    @yield('content')
+
 @stop
 
 @section('css')
