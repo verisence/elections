@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Stream extends Model
 {
     use HasFactory;
+
+    public function agents() {
+        return $this->hasMany('App\Agent');
+    }
 }

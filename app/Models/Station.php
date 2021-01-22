@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Station extends Model
 {
     use HasFactory;
+
+    public function streams() {
+        return $this->hasMany('App\Stream');
+    }
 }
