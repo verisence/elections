@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class StationController extends Controller
+use App\Models\Station;
+
+class StationsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +15,9 @@ class StationController extends Controller
      */
     public function index()
     {
-        return view('pages.stations');
+        $stations = Station::orderBy('created_at','desc')->get();
+        return view('pages.stations', compact(['stations']));
+        // return json_encode($stations);
     }
 
     /**
@@ -23,7 +27,7 @@ class StationController extends Controller
      */
     public function create()
     {
-        //
+        return view('station.create');
     }
 
     /**
@@ -34,7 +38,24 @@ class StationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validation
+        $this->validate($request, [
+            'name' => 'required',
+            'location' => 'required'
+        ]);
+
+        // Create station
+        $station = new Station;
+        $station->name = $request->input('name');
+        $station->location = $request->input('location');
+        $station->votes = 0;
+        $station->pending = true;
+
+        // Save station
+        $station->save();
+
+        // Redirect
+        return redirect('/stations')->with('success', 'Station Saved');
     }
 
     /**
@@ -45,7 +66,8 @@ class StationController extends Controller
      */
     public function show($id)
     {
-        //
+        $station = Station::find($id);
+        return view('station.show')->with('station', $station);
     }
 
     /**
@@ -56,7 +78,8 @@ class StationController extends Controller
      */
     public function edit($id)
     {
-        //
+        $station = Station::find($id);
+        // return view('station.edit')->with('station', $station);
     }
 
     /**
@@ -68,7 +91,22 @@ class StationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Validation
+        $this->validate($request, [
+            'name' => 'required',
+            'location' => 'required'
+        ]);
+
+        // Edit station
+        $station = Station::find($id);
+        $station->name = $request->input('name');
+        $station->location = $request->input('location');
+
+        // Save station
+        $station->save();
+
+        // Redirect
+        return redirect('/stations')->with('success', 'Station Updated');
     }
 
     /**
@@ -79,6 +117,9 @@ class StationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $station = Station::find($id);
+        $station->delete();
+
+        return redirect('/stations')->with('success', 'Station Deleted');
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StationsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'App\Http\Controllers\DashboardController@index');
 
 // STATIONS
-Route::get('/stations', 'App\Http\Controllers\StationsController@index');
+Route::resource('stations', StationsController::class);
+// Route::get('/stations', 'App\Http\Controllers\StationsController@index');
 
 // AGENTS
 Route::get('/agents', 'App\Http\Controllers\AgentsController@index');
