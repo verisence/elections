@@ -187,7 +187,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => '/',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -229,11 +229,11 @@ return [
             'search' => false,
             'topnav' => true,
         ],
-        [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
-        ],
+        // [
+        //     'text' => 'blog',
+        //     'url'  => 'admin/blog',
+        //     'can'  => 'manage-blog',
+        // ],
         [
             'text'        => 'Home',
             'url'         => '/',
@@ -241,7 +241,7 @@ return [
             'icon'       => 'fa fa-fw fa-home',
             'label_color' => 'success',
         ],
-        ['header' => 'account_settings'],
+        // ['header' => 'account_settings'],
         [
             'text' => 'Polling Stations',
             'url'  => '/stations',
@@ -265,16 +265,12 @@ return [
         [
             'text'    => 'Voters',
             'icon'    => 'fa fa-fw fa-id-card',
-            'submenu' => [
-                [
-                    'text' => 'View All',
-                    'url'  => '/voters',
-                ],
-                [
-                    'text'    => 'Send Message',
-                    'url'     => '/messages',
-                ],
-            ],
+            'url'  => '/voters'
+        ],
+        [
+            'text'    => 'Messages',
+            'icon'    => 'fa fa-fw fa-comments',
+            'url'  => '/messages'
         ],
     ],
 

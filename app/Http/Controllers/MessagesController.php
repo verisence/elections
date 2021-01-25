@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Message;
 
 class MessagesController extends Controller
 {
@@ -13,7 +14,8 @@ class MessagesController extends Controller
      */
     public function index()
     {
-        return view('pages.sms');
+        $messages = Message::orderBy('created_at', 'desc')->get();
+        return view('message.messages', compact(['messages']));
     }
 
     /**
@@ -34,7 +36,22 @@ class MessagesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validation
+        $this->validate($request, [
+            'title' => 'required',
+            'message' => 'required',
+        ]);
+
+        // Create message
+        $message = new Message;
+        $message->title = $request->input('title');
+        $message->message = $request->input('message');
+
+        // Save message
+        $message->save();
+
+        // Redirect
+        return redirect('/messages')->with('success', 'Message Saved');
     }
 
     /**
@@ -45,7 +62,8 @@ class MessagesController extends Controller
      */
     public function show($id)
     {
-        //
+        $message = Message::find($id);
+        return view('message.show', compact(['message']));
     }
 
     /**
@@ -56,7 +74,7 @@ class MessagesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $message = Message::find($id);
     }
 
     /**
@@ -68,7 +86,24 @@ class MessagesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Validation
+        $this->validate($request, [
+            'title' => 'required',
+            'message' => 'required',
+        ]);
+
+        // Edit Message
+        $message = Message::find($id);
+        $message->title = $request->input('title');
+        $message->message = $request->input('message');
+
+        // Save updates
+        $message->save();
+
+        // Redirect
+        return redirect('/messages/'.$id)->with('success', 'Message updated');
+
+
     }
 
     /**
@@ -79,6 +114,9 @@ class MessagesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $message = Message::find($id);
+        $message->delete();
+
+        return redirect('/messages')->with('success', 'Message Deleted');
     }
 }

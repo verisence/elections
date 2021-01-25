@@ -11,6 +11,9 @@
             @foreach ($agents as $agent)
                 <div class="col-sm-6 col-md-6 col-lg-3">
                     <div class="card">
+                        <div class="card-header">
+                            <h5>{{$agent->name}}</h5>
+                        </div>
                         <div class="card-body">
                             <h5 class="card-title">
                                 {{$agent->name}}
