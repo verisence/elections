@@ -7,14 +7,25 @@
 
 @section('content')
 
-    <div class="jumbotron">
-        <div class="container">
-            <p class="lead">{{$stream->votes}}</p>
-            <small>Polling Station: {{$stream->station_id}}</small>
-            <br>
-            <br>
-            <a href="/stream/{{$stream->id}}/edit" class="btn btn-primary" role="button" data-toggle="modal" data-target="#modal-edit">Edit</a>
-            {!!Form::open(['action' => ['App\Http\Controllers\StreamsController@destroy', $stream->id], 'method' => 'POST', 'class' => 'pull-right'])!!}
+<div class="card mx-auto" style="width:75%">
+
+    <div class="card-header">
+        <h5>{{$stream->name}}</h5>
+        </div>
+        <div class="card-body">
+
+        <p class="card-text">
+            Polling Station: {{$station->name}}
+        </p>
+        <p class="card-text">
+            Votes: {{$stream->votes}}
+        </p>
+        <p class="card-text">
+            Pending:
+        </p>
+
+        <a href="/stream/{{$stream->id}}/edit" class="btn btn-primary" role="button" data-toggle="modal" data-target="#modal-edit">Edit</a>
+        {!!Form::open(['action' => ['App\Http\Controllers\StreamsController@destroy', $stream->id], 'method' => 'POST', 'class' => 'float-right'])!!}
                 {{Form::hidden('_method','DELETE')}}
                 {{Form::submit('Delete', ['class'=>'btn btn-danger'])}}
             {!!Form::close()!!}
@@ -36,7 +47,11 @@
 
                 <input type="text" value="{{$stream['name']}}" class="form-control" name="name">
                 <br>
-                <textarea class="text" name="location">{{$stream['location']}}</textarea>
+                <select name="station[]" class="form-control">
+                    @foreach ($stations as $station)
+                      <option value="{{$station->id}}">{{$station->name}}</option>
+                    @endforeach
+                </select>
               </div>
               <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

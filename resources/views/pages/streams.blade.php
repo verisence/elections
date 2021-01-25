@@ -11,12 +11,14 @@
             @foreach ($streams as $stream)
                 <div class="col-sm-6 col-md-6 col-lg-3">
                     <div class="card">
-                        <div class="card-body">
+                        <div class="card-header">
                             <h5 class="card-title">
                                 {{$stream->name}}
                             </h5>
+                        </div>
+                        <div class="card-body">
                             <h6 class="card-subtitle mb-2 text-muted">
-                                Polling Station: {{$stream->station_id}}
+                                Votes: {{$stream->votes}}
                             </h6>
                             <p>
                                 <a href="/streams/{{$stream->id}}" class="btn btn-sm btn-success">View More</a>

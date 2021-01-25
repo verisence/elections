@@ -106,7 +106,7 @@ class StationsController extends Controller
         $station->save();
 
         // Redirect
-        return redirect('/stations')->with('success', 'Station Updated');
+        return redirect('/stations/'.$id)->with('success', 'Station Updated');
     }
 
     /**

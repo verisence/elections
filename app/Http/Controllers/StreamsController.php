@@ -17,6 +17,7 @@ class StreamsController extends Controller
     public function index()
     {
         $streams = Stream::orderBy('created_at','desc')->get();
+
         return view('pages.streams', compact(['streams']));
     }
 
@@ -69,7 +70,9 @@ class StreamsController extends Controller
     public function show($id)
     {
         $stream = Stream::find($id);
-        return view('stream.show', compact(['stream']));
+        $stations = Station::orderBy('created_at','asc')->get();
+        $station = Station::find($stream->station_id);
+        return view('stream.show', compact(['stream','station','stations']));
     }
 
     /**
@@ -101,13 +104,13 @@ class StreamsController extends Controller
         // Edit stream
         $stream = Stream::find($id);
         $stream->name = $request->input('name');
-        $stream->station = 4;
+        $stream->station_id = 1;
 
-        // Save stream
+        // Save updates
         $stream->save();
 
         // Redirect
-        return redirect('/streams')->with('success', 'Stream Updated');
+        return redirect('/streams/'.$id)->with('success', 'Stream Updated');
     }
 
     /**
