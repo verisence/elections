@@ -49,7 +49,7 @@ class StationsController extends Controller
         $station->name = $request->input('name');
         $station->location = $request->input('location');
         $station->votes = 0;
-        $station->pending = true;
+        $station->pending = false;
 
         // Save station
         $station->save();

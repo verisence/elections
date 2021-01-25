@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\Stream;
-use App\Models\Station;
+use App\Models\Payment;
+use App\Models\Agent;
 
-class StreamsController extends Controller
+
+class PaymentsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +17,8 @@ class StreamsController extends Controller
      */
     public function index()
     {
-        $streams = Stream::orderBy('created_at','desc')->get();
-        return view('pages.streams', compact(['streams']));
+        $payments = Payment::orderBy('created_at','desc')->get();
+        return view('pages.payments', compact(['payments']));
     }
 
     /**
@@ -27,9 +28,8 @@ class StreamsController extends Controller
      */
     public function create()
     {
-        $stations = Station::orderBy('created_at','asc')->get();
-        return view('stream.create', compact(['stations']));
-        // return json_encode($stationNames[0]);
+        $agents = Agent::orderBy('created_at','asc')->get();
+        return view('payment.create', compact(['agents']));
     }
 
     /**
@@ -42,22 +42,19 @@ class StreamsController extends Controller
     {
         // Validation
         $this->validate($request, [
-            'name' => 'required',
-            'station' => 'required'
+            'amount' => 'required',
         ]);
 
-        // Create stream
-        $stream = new Stream;
-        $stream->name = $request->input('name');
-        $stream->votes = 0;
-        $stream->pending = false;
-        $stream->station_id = 2;
+        // Create payment
+        $payment = new Payment;
+        $payment->amount = $request->input('amount');
+        $payment->agent_id = 1;
 
-        // Save stream
-        $stream->save();
+        // Save payment
+        $payment->save();
 
         // Redirect
-        return redirect('/streams')->with('success', 'Stream Saved');
+        return redirect('/payments')->with('success', 'Payment Saved');
     }
 
     /**
@@ -68,8 +65,8 @@ class StreamsController extends Controller
      */
     public function show($id)
     {
-        $stream = Stream::find($id);
-        return view('stream.show', compact(['stream']));
+        $payment = Payment::find($id);
+        return view('payment.show', compact(['payment']));
     }
 
     /**
@@ -80,7 +77,7 @@ class StreamsController extends Controller
      */
     public function edit($id)
     {
-        $stream = Stream::find($id);
+        $payment = Payment::find($id);
     }
 
     /**
@@ -94,20 +91,20 @@ class StreamsController extends Controller
     {
         // Validation
         $this->validate($request, [
-            'name' => 'required',
-            'station' => 'required'
+            'amount' => 'required',
         ]);
 
-        // Edit stream
-        $stream = Stream::find($id);
-        $stream->name = $request->input('name');
-        $stream->station = 4;
+        // Edit payment
+        $payment = Payment::find($id);
+        $payment->amount = $request->input('amount');
+        $payment->agent_id = 1;
 
-        // Save stream
-        $stream->save();
+        // Save updates
+        $payment->save();
 
         // Redirect
-        return redirect('/streams')->with('success', 'Stream Updated');
+        return redirect('/payments')->with('success', 'Payment Updated');
+
     }
 
     /**
@@ -118,9 +115,9 @@ class StreamsController extends Controller
      */
     public function destroy($id)
     {
-        $stream = Stream::find($id);
-        $stream->delete();
+        $payment = Payment::find($id);
+        $payment->delete();
 
-        return redirect('/streams')->with('success', 'Stream Deleted');
+        return redirect('/payments')->with('success', 'Payment Deleted');
     }
 }

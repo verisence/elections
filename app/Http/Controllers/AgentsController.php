@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Agent;
+use App\Models\Stream;
+
 class AgentsController extends Controller
 {
     /**
@@ -13,7 +16,9 @@ class AgentsController extends Controller
      */
     public function index()
     {
-        return view('pages.agents');
+        $agents = Agent::orderBy('created_at','desc')->get();
+        return view('pages.agents', compact(['agents']));
+        // return json_encode($agents);
     }
 
     /**
@@ -23,7 +28,8 @@ class AgentsController extends Controller
      */
     public function create()
     {
-        //
+        $streams = Stream::orderBy('created_at','asc')->get();
+        return view('agent.create', compact(['streams']));
     }
 
     /**
@@ -34,7 +40,27 @@ class AgentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validation
+        $this->validate($request, [
+            'name' => 'required',
+            'id_number' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+        ]);
+
+        // Create agent
+        $agent = new Agent;
+        $agent->name = $request->input('name');
+        $agent->id_number = $request->input('id_number');
+        $agent->phone_number = $request->input('phone');
+        $agent->email = $request->input('email');
+        $agent->stream_id = 2;
+
+        // Save agent
+        $agent->save();
+
+        // Redirect
+        return redirect('/agents')->with('success', 'Agent Saved');
     }
 
     /**
@@ -45,7 +71,8 @@ class AgentsController extends Controller
      */
     public function show($id)
     {
-        //
+        $agent = Agent::find($id);
+        return view('agent.show', compact(['agent']));
     }
 
     /**
@@ -56,7 +83,7 @@ class AgentsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $agent = Agent::find($id);
     }
 
     /**
@@ -68,7 +95,27 @@ class AgentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Validation
+        $this->validate($request, [
+            'name' => 'required',
+            'id_number' => 'required',
+            'email' => 'required',
+            'phone_number' => 'required',
+        ]);
+
+        // Edit agent
+        $agent = Agent::find($id);
+        $agent->name = $request->input('name');
+        $agent->id_number = $request->input('id_number');
+        $agent->phone_number = $request->input('phone_number');
+        $agent->email = $request->input('email');
+        $agent->stream_id = 2;
+
+        // Save updates
+        $agent->save();
+
+        // Redirect
+        return redirect('/agents')->with('success', 'Agent Details Updated');
     }
 
     /**
@@ -79,6 +126,9 @@ class AgentsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $agent = Agent::find($id);
+        $agent->delete();
+
+        return redirect('/agents')->with('success', 'Agent Deleted');
     }
 }

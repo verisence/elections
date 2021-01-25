@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Voter;
 
 class VotersController extends Controller
 {
@@ -13,7 +14,8 @@ class VotersController extends Controller
      */
     public function index()
     {
-        return view('pages.voters');
+        $voters = Voter::orderBy('created_at','desc')->get();
+        return view('pages.voters', compact(['voters']));
     }
 
     /**
@@ -23,7 +25,7 @@ class VotersController extends Controller
      */
     public function create()
     {
-        //
+        return view('voter.create');
     }
 
     /**
@@ -34,7 +36,26 @@ class VotersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validation
+        $this->validate($request, [
+            'name' => 'required',
+            'id_number' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+        ]);
+
+        // Create voter
+        $voter = new Voter;
+        $voter->name = $request->input('name');
+        $voter->id_number = $request->input('id_number');
+        $voter->phone_number = $request->input('phone');
+        $voter->email = $request->input('email');
+
+        // Save voter
+        $voter->save();
+
+        // Redirect
+        return redirect('/voters')->with('success', 'Voter Saved');
     }
 
     /**
@@ -45,7 +66,8 @@ class VotersController extends Controller
      */
     public function show($id)
     {
-        //
+        $voter = Voter::find($id);
+        return view('voter.show', compact(['voter']));
     }
 
     /**
@@ -56,7 +78,7 @@ class VotersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $voter = Voter::find($id);
     }
 
     /**
@@ -68,7 +90,26 @@ class VotersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Validation
+        $this->validate($request, [
+            'name' => 'required',
+            'id_number' => 'required',
+            'email' => 'required',
+            'phone_number' => 'required',
+        ]);
+
+        // Edit voter
+        $voter = Voter::find($id);
+        $voter->name = $request->input('name');
+        $voter->id_number = $request->input('id_number');
+        $voter->phone_number = $request->input('phone_number');
+        $voter->email = $request->input('email');
+
+        // Save updates
+        $voter->save();
+
+        // Redirect
+        return redirect('/voters')->with('success', 'Voter details updated');
     }
 
     /**
@@ -79,6 +120,9 @@ class VotersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $voter = Voter::find($id);
+        $voter->delete();
+
+        return redirect('/voters')->with('success', 'Voter Deleted');
     }
 }

@@ -248,9 +248,19 @@ return [
             'icon' => 'fas fa-fw fa-map-marker',
         ],
         [
+            'text' => 'Streams',
+            'url'  => '/streams',
+            'icon' => 'fas fa-fw fa-columns',
+        ],
+        [
             'text' => 'Agents',
             'url'  => '/agents',
             'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'Payments',
+            'url'  => '/payments',
+            'icon' => 'fas fa-fw fa-credit-card',
         ],
         [
             'text'    => 'Voters',
@@ -262,7 +272,7 @@ return [
                 ],
                 [
                     'text'    => 'Send Message',
-                    'url'     => '/sms',
+                    'url'     => '/messages',
                 ],
             ],
         ],

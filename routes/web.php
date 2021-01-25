@@ -2,6 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StationsController;
+use App\Http\Controllers\StreamsController;
+use App\Http\Controllers\AgentsController;
+use App\Http\Controllers\PaymentsController;
+use App\Http\Controllers\VotersController;
+use App\Http\Controllers\MessagesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,11 +26,17 @@ Route::get('/', 'App\Http\Controllers\DashboardController@index');
 Route::resource('stations', StationsController::class);
 // Route::get('/stations', 'App\Http\Controllers\StationsController@index');
 
+// STREAMS
+Route::resource('streams', StreamsController::class);
+
 // AGENTS
-Route::get('/agents', 'App\Http\Controllers\AgentsController@index');
+Route::resource('agents', AgentsController::class);
+
+// PAYMENTS
+Route::resource('payments', PaymentsController::class);
 
 // VOTERS
-Route::get('/voters', 'App\Http\Controllers\VotersController@index');
+Route::resource('voters', VotersController::class);
 
 // SMS
-Route::get('/sms', 'App\Http\Controllers\MessagesController@index');
+Route::resource('messages', MessagesController::class);
