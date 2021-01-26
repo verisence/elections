@@ -29,7 +29,7 @@
             @endforeach
         </div>
     @else
-        <h3>No polling stations added at the moment click the button below to create a new one</h3>
+        <h3>No polling stations added at the moment click the button above to create a new one</h3>
     @endif
 
 
