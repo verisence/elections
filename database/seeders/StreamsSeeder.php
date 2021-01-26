@@ -19,7 +19,7 @@ class StreamsSeeder extends Seeder
         $faker = Faker::create();
         foreach (range(1,30) as $index) {
             DB::table('streams')->insert([
-                'name'=> $faker->sentence(2),
+                'name'=> $faker->company,
                 'votes'=>$faker->numberBetween(0,0),
                 'pending'=>$faker->numberBetween(0,0),
                 'station_id'=>$faker->numberBetween(1,15),

@@ -7,13 +7,13 @@
 @section('content')
 
     {!! Form::open(['action' => 'App\Http\Controllers\MessagesController@store', 'method' => 'POST']) !!}
-        {!!Form::label('title', 'Title');!!}
-        {!! Form::text('title', null, ['class' => 'form-control']); !!}
-        <br>
-        {!!Form::label('message', 'Message');!!}
-        {!! Form::textArea('message', null, ['class' => 'form-control', 'rows'=>'2']); !!}
-        <br>
-        {!! Form::submit('Send', ['class'=>'btn btn-primary']); !!}
+    {!! Form::label('title', 'Title') !!}
+    {!! Form::text('title', null, ['class' => 'form-control']) !!}
+    <br>
+    {!! Form::label('message', 'Message') !!}
+    {!! Form::textArea('message', null, ['class' => 'form-control', 'rows' => '2']) !!}
+    <br>
+    {!! Form::submit('Send', ['class' => 'btn btn-primary']) !!}
     {!! Form::close() !!}
 
     <br>
@@ -22,49 +22,50 @@
 
     <div class="card">
         <div class="card-header">
-        <h3 class="card-title" style="">All Messages</h3>
+            <h3 class="card-title" style="">All Messages</h3>
 
         </div>
         <!-- /.card-header -->
         <div class="card-body p-0">
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Title</th>
-                <th>Date</th>
-                <th style="width: 40px"> </th>
-            </tr>
-            </thead>
-            <tbody>
-
-            @if (count($messages)>0)
-                @foreach ($messages as $message)
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>{{$message->title}}</td>
-                        <td>
-                            {{$message->created_at}}
-                        </td>
-                        <td>
-                            <a href="/messages/{{$message->id}}" class="btn btn-sm btn-success" role="button">More</a>
-                        </td>
+                        <th>Title</th>
+                        <th>Date</th>
+                        <th style="width: 40px"> </th>
                     </tr>
-                @endforeach
-            @else
-                <tr>
-                    <td>
-                        No messages
-                    </td>
-                    <td>
-                        Create one above
-                    </td>
-                    <td>
+                </thead>
+                <tbody>
 
-                    </td>
-                </tr>
-            @endif
+                    @if (count($messages) > 0)
+                        @foreach ($messages as $message)
+                            <tr>
+                                <td>{{ $message->title }}</td>
+                                <td>
+                                    {{ $message->created_at }}
+                                </td>
+                                <td>
+                                    <a href="/messages/{{ $message->id }}" class="btn btn-sm btn-success"
+                                        role="button">More</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @else
+                        <tr>
+                            <td>
+                                No messages
+                            </td>
+                            <td>
+                                Create one above
+                            </td>
+                            <td>
 
-            </tbody>
-        </table>
+                            </td>
+                        </tr>
+                    @endif
+
+                </tbody>
+            </table>
         </div>
         <!-- /.card-body -->
     </div>

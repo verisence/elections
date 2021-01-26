@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Station;
+use App\Models\Stream;
+
+use function PHPUnit\Framework\countOf;
 
 class StationsController extends Controller
 {
@@ -67,7 +71,10 @@ class StationsController extends Controller
     public function show($id)
     {
         $station = Station::find($id);
-        return view('station.show')->with('station', $station);
+        $streams = Stream::orderBy('created_at','desc')->get()->where('station_id', $id);
+        return view('station.show', compact(['station', 'streams']));
+        // return json_encode($streams);
+        // return count($streams);
     }
 
     /**
