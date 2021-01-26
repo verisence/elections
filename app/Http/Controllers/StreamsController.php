@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Stream;
 use App\Models\Station;
+use App\Models\Agent;
 
 class StreamsController extends Controller
 {
@@ -17,8 +18,8 @@ class StreamsController extends Controller
     public function index()
     {
         $streams = Stream::orderBy('created_at','desc')->get();
-
-        return view('pages.streams', compact(['streams']));
+        $stations = Station::orderBy('created_at','asc')->get();
+        return view('pages.streams', compact(['streams', 'stations']));
     }
 
     /**
@@ -71,8 +72,9 @@ class StreamsController extends Controller
     {
         $stream = Stream::find($id);
         $stations = Station::orderBy('created_at','asc')->get();
+        $agents = Agent::orderBy('created_at','desc')->get()->where('stream_id', $id);
         $station = Station::find($stream->station_id);
-        return view('stream.show', compact(['stream','station','stations']));
+        return view('stream.show', compact(['stream','station','stations','agents']));
     }
 
     /**

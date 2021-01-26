@@ -17,12 +17,13 @@
                             <h5>{{$station->name}}</h5>
                         </div>
                         <div class="card-body">
-                            <h6 class="card-subtitle mb-2 text-muted">
+                            <h6 class="card-subtitle mb-2">
                                 Location: {{$station->location}}
                             </h6>
+                            <span class="card-text">{{$station->votes}} votes</span>
                         </div>
                         <div class="card-footer">
-                            <a href="/stations/{{$station->id}}" class="btn btn-sm btn-info float-right">View More</a>
+                            <a href="/stations/{{$station->id}}" class="btn btn-sm btn-info">View More</a>
                         </div>
                     </div>
                 </div>
