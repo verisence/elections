@@ -16,12 +16,12 @@ class StationsSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        foreach (range(0,0) as $index) {
+        foreach (range(1,15) as $index) {
             DB::table('stations')->insert([
                 'name'=> $faker->cityPrefix . " " . $faker->streetSuffix,
                 'location'=>$faker->city,
-                'votes'=>$faker->numberBetween(100,9999),
-                'pending'=>$faker->numberBetween(0,1),
+                'votes'=>$faker->numberBetween(0,0),
+                'pending'=>$faker->numberBetween(0,0),
                 'created_at'=>$faker->dateTimeThisMonth(),
                 'updated_at'=>$faker->dateTimeThisMonth(),
             ]);

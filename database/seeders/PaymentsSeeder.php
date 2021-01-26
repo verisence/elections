@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Faker\Factory as Faker;
 
-class MessagesSeeder extends Seeder
+class PaymentsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,10 +16,10 @@ class MessagesSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        foreach (range(1,200) as $index) {
-            DB::table('messages')->insert([
-                'title'=> $faker->sentence(3),
-                'message'=>$faker->paragraph(10),
+        foreach (range(1,150) as $index) {
+            DB::table('payments')->insert([
+                'amount'=>$faker->numberBetween(4999,500001),
+                'agent_id'=>$faker->numberBetween(1,60),
                 'created_at'=>$faker->dateTimeThisMonth(),
                 'updated_at'=>$faker->dateTimeThisMonth(),
             ]);

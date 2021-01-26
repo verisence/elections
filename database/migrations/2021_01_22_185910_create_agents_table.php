@@ -16,9 +16,10 @@ class CreateAgentsTable extends Migration
         Schema::create('agents', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_number');
-            $table->integer('phone_number');
+            $table->string('phone_number',15);
             $table->string('name');
             $table->string('email');
+            $table->integer('votes');
             $table->timestamps();
             $table->integer('stream_id')->unsigned();
             $table->foreign('stream_id')

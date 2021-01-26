@@ -18,6 +18,9 @@ class DatabaseSeeder extends Seeder
             StationsSeeder::class,
             MessagesSeeder::class,
             VotersSeeder::class,
+            StreamsSeeder::class,
+            AgentsSeeder::class,
+            PaymentsSeeder::class,
         ]);
     }
 }
