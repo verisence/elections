@@ -80,7 +80,7 @@
                 {!! Form::open(['action' => ['App\Http\Controllers\VotersController@destroy', $voter->id], 'method' =>
                 'POST']) !!}
                 <div class="modal-body">
-                    <p>Are you sure you want to delete {{ $voter['name'] }} from the voters list?</p>
+                    <p>Are you sure you want to delete "{{ $voter['name'] }}" from the voters' list?</p>
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>

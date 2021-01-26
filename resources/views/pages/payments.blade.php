@@ -6,29 +6,65 @@
 
 @section('content')
 
-    @if (count($payments)>0)
-        <div class="row">
-            @foreach ($payments as $payment)
-                <div class="col-sm-6 col-md-6 col-lg-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                {{$payment->agent_id}}
-                            </h5>
-                            <h6 class="card-subtitle mb-2 text-muted">
-                                Amount: {{$payment->amount}}
-                            </h6>
-                            <p>
-                                <a href="/payments/{{$payment->id}}" class="btn btn-sm btn-success">View More</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    @else
-        <h3>No payments made at the moment click the button below to create a new one</h3>
-    @endif
-
     <a href="/payments/create" class="btn btn-primary" style="margin-bottom:2rem">Create New</a>
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title" style="">All Payments</h3>
+
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body p-0">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Agent</th>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th style="width: 40px"> </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @if (count($payments) > 0)
+                        @foreach ($payments as $payment)
+
+                            <tr>
+                                <td>
+                                    @foreach ($agents as $agent)
+                                        @if ($agent->id == $payment->agent_id)
+                                            {{$agent->name}}
+                                        @endif
+                                    @endforeach
+
+                                </td>
+                                <td>{{ $payment->created_at }}</td>
+                                <td>{{ $payment->amount }}</td>
+                                <td>
+                                    <a href="/payments/{{ $payment->id }}" class="btn btn-sm btn-info"
+                                        role="button">More</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @else
+                        <tr>
+                            <td>
+                                No payments at the moment
+                            </td>
+                            <td>
+                                Create one above
+                            </td>
+                            <td>
+
+                            </td>
+                        </tr>
+                    @endif
+
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
+
+
 @endsection

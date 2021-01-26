@@ -128,7 +128,7 @@
                 {!! Form::open(['action' => ['App\Http\Controllers\StationsController@destroy', $station->id], 'method' =>
                 'POST']) !!}
                 <div class="modal-body">
-                    <p>Are you sure you want to delete {{ $station['name'] }} from the stations list?</p>
+                    <p>Are you sure you want to delete "{{ $station['name'] }}" from the stations' list?</p>
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>

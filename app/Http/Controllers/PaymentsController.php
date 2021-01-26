@@ -18,7 +18,8 @@ class PaymentsController extends Controller
     public function index()
     {
         $payments = Payment::orderBy('created_at','desc')->get();
-        return view('pages.payments', compact(['payments']));
+        $agents = Agent::orderBy('created_at','asc')->get();
+        return view('pages.payments', compact(['payments', 'agents']));
     }
 
     /**
@@ -66,7 +67,10 @@ class PaymentsController extends Controller
     public function show($id)
     {
         $payment = Payment::find($id);
-        return view('payment.show', compact(['payment']));
+        $agentSort = Agent::orderBy('created_at','desc')->get()->where('id', $payment->agent_id)->values();
+        $agent = $agentSort[0];
+        return view('payment.show', compact(['payment', 'agent']));
+        // return json_encode($agent);
     }
 
     /**
