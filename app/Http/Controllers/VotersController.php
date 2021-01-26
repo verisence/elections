@@ -109,7 +109,7 @@ class VotersController extends Controller
         $voter->save();
 
         // Redirect
-        return redirect('/voters')->with('success', 'Voter details updated');
+        return redirect('/voters/'.$id)->with('success', 'Voter details updated');
     }
 
     /**

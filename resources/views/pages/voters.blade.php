@@ -6,29 +6,61 @@
 
 @section('content')
 
-    @if (count($voters)>0)
-        <div class="row">
-            @foreach ($voters as $voter)
-                <div class="col-sm-6 col-md-6 col-lg-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                {{$voter->name}}
-                            </h5>
-                            <h6 class="card-subtitle mb-2 text-muted">
-                                Phone: {{$voter->phone_number}}
-                            </h6>
-                            <p>
-                                <a href="/voters/{{$voter->id}}" class="btn btn-sm btn-success">View More</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    @else
-        <h3>No voters added at the moment click the button below to create a new one</h3>
-    @endif
+<a href="/voters/create" class="btn btn-primary" style="margin-bottom:2rem">Create New</a>
 
-    <a href="/voters/create" class="btn btn-primary" style="margin-bottom:2rem">Create New</a>
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title" style="">All Voters</h3>
+
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body p-0">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>ID number</th>
+                    <th>Phone number</th>
+                    <th>Email</th>
+                    <th style="width: 40px"> </th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @if (count($voters) > 0)
+                    @foreach ($voters as $voter)
+                        <tr>
+                            <td>{{ $voter->name }}</td>
+                            <td>{{ $voter->id_number }}</td>
+                            <td>{{ $voter->phone_number }}</td>
+                            <td>
+                                {{ $voter->email }}
+                            </td>
+                            <td>
+                                <a href="/voters/{{ $voter->id }}" class="btn btn-sm btn-info"
+                                    role="button">More</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                @else
+                    <tr>
+                        <td>
+                            No voters at the moment
+                        </td>
+                        <td>
+                            Create one above
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+                @endif
+
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+</div>
+
+
 @endsection

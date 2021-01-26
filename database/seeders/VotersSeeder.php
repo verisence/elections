@@ -19,7 +19,7 @@ class VotersSeeder extends Seeder
         foreach (range(1,200) as $index) {
             DB::table('voters')->insert([
                 'name'=> $faker->name,
-                'id_number'=>$faker->numberBetween(9999999,49999999),
+                'id_number'=>$faker->numberBetween(9999999,39999999),
                 'phone_number'=>$faker->e164PhoneNumber,
                 'email'=>$faker->unique()->freeEmail,
                 'created_at'=>$faker->dateTimeThisMonth(),

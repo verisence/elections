@@ -1,7 +1,7 @@
 @extends('welcome')
 
 @section('page-title')
-    <a href="/stations" class="btn btn-default" style="margin-bottom:2rem"><i class="fas fa-arrow-left"></i> Go Back</a>
+    <a href="/stations" class="btn btn-default" style="margin-bottom:2rem"><i class="fas fa-arrow-left"></i> Polling Stations</a>
 @endsection
 
 @section('content')
@@ -9,7 +9,7 @@
     <div class="card mx-auto" style="width:75%">
         <div class="card-header">
             <h5>{{ $station->name }} <span class="float-right">
-                    <h6>Streams <span class="badge badge-info right">{{ count($streams) }}</h6>
+                    <h6>Streams <span class="badge badge-info right">{{ count($streams) }}</span></h6>
                 </span></h5>
         </div>
         <div class="card-body">
@@ -28,8 +28,6 @@
                     Pending: No
                 @endif
             </p>
-
-            {{-- <h5 class="card-text">Streams</h5> --}}
 
             <table class="table">
                 <thead>
@@ -56,6 +54,10 @@
                                         <span class="badge badge-success">No</span>
                                     @endif
                                 </td>
+                                <td>
+                                    <a href="/streams/{{ $stream->id }}" class="btn btn-sm btn-info"
+                                        role="button">More</a>
+                                </td>
                             </tr>
                         @endforeach
                     @else
@@ -74,14 +76,13 @@
 
                 </tbody>
             </table>
+        </div>
+        <div class="card-footer">
 
-            <a href="/station/{{ $station->id }}/edit" class="btn btn-primary" role="button" data-toggle="modal"
-                data-target="#modal-edit">Edit</a>
-            {!! Form::open(['action' => ['App\Http\Controllers\StationsController@destroy', $station->id], 'method' =>
-            'POST', 'class' => 'float-right']) !!}
-            {{ Form::hidden('_method', 'DELETE') }}
-            {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
-            {!! Form::close() !!}
+            <a href="/station/{{ $station->id }}/edit" class="btn btn-primary" role="button" data-toggle="modal" data-target="#modal-edit">Edit</a>
+            <a href="/station/{{ $station->id }}/delete" class="btn btn-danger float-right" role="button" data-toggle="modal" data-target="#modal-delete">Delete</a>
+
+
         </div>
     </div>
 
@@ -107,6 +108,32 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     {!! Form::hidden('_method', 'PUT') !!}
                     {!! Form::submit('Submit', ['class' => 'btn btn-info']) !!}
+                </div>
+                {!! Form::close() !!}
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="modal-delete">
+        <div class="modal-dialog">
+            <div class="modal-content bg-default">
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete Station</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {!! Form::open(['action' => ['App\Http\Controllers\StationsController@destroy', $station->id], 'method' =>
+                'POST']) !!}
+                <div class="modal-body">
+                    <p>Are you sure you want to delete {{ $station['name'] }} from the stations list?</p>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                    {!! Form::hidden('_method', 'DELETE') !!}
+                    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                 </div>
                 {!! Form::close() !!}
             </div>
