@@ -2,7 +2,6 @@
 
 @section('page-title')
     <a href="/streams" class="btn btn-default" style="margin-bottom:2rem"><i class="fas fa-arrow-left"></i> Go Back</a>
-    <h1>{{$stream->name}}</h1>
 @endsection
 
 @section('content')
@@ -23,12 +22,14 @@
         <p class="card-text">
             Pending:
         </p>
-
-        <a href="/stream/{{$stream->id}}/edit" class="btn btn-primary" role="button" data-toggle="modal" data-target="#modal-edit">Edit</a>
-        {!!Form::open(['action' => ['App\Http\Controllers\StreamsController@destroy', $stream->id], 'method' => 'POST', 'class' => 'float-right'])!!}
+        <div class="card-footer">
+            <a href="/stream/{{$stream->id}}/edit" class="btn btn-primary" role="button" data-toggle="modal" data-target="#modal-edit">Edit</a>
+            {!!Form::open(['action' => ['App\Http\Controllers\StreamsController@destroy', $stream->id], 'method' => 'POST', 'class' => 'float-right'])!!}
                 {{Form::hidden('_method','DELETE')}}
                 {{Form::submit('Delete', ['class'=>'btn btn-danger'])}}
             {!!Form::close()!!}
+        </div>
+
         </div>
     </div>
 

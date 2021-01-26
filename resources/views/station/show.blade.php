@@ -19,7 +19,11 @@
           Votes: {{$station->votes}}
         </p>
         <p class="card-text">
-          Pending: 
+            @if ($station->pending==1)
+                Pending: Yes
+            @else
+                Pending: No
+            @endif
         </p>
 
         <a href="/station/{{$station->id}}/edit" class="btn btn-primary" role="button" data-toggle="modal" data-target="#modal-edit">Edit</a>
@@ -28,7 +32,7 @@
               {{Form::submit('Delete', ['class'=>'btn btn-danger'])}}
           {!!Form::close()!!}
       </div>
-    </div>    
+    </div>
 
     <div class="modal fade" id="modal-edit">
         <div class="modal-dialog">
