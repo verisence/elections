@@ -17,7 +17,7 @@ class CreateVotersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('id_number');
-            $table->integer('phone_number');
+            $table->string('phone_number',15);
             $table->integer('email');
             $table->timestamps();
         });
