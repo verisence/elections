@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Agent;
+use App\Models\Payment;
 use App\Models\Stream;
+use App\Models\Station;
 
 class AgentsController extends Controller
 {
@@ -72,7 +74,11 @@ class AgentsController extends Controller
     public function show($id)
     {
         $agent = Agent::find($id);
-        return view('agent.show', compact(['agent']));
+        $payments = Payment::orderBy('created_at','desc')->get()->where('agent_id', $id);
+        $stream = Stream::orderBy('created_at','desc')->get()->where('id', $agent->stream_id)->values()[0];
+        $station = Station::orderBy('created_at','desc')->get()->where('id', $stream->station_id)->values()[0];
+        return view('agent.show', compact(['agent', 'payments', 'station', 'stream']));
+        // return json_encode($station);
     }
 
     /**
