@@ -38,7 +38,7 @@
                                     @endforeach
 
                                 </td>
-                                <td>{{ $payment->created_at }}</td>
+                                <td>{{ date('M j, Y g:i a', strtotime($payment->created_at.'+3 hour')) }}</td>
                                 <td>{{ $payment->amount }}</td>
                                 <td>
                                     <a href="/payments/{{ $payment->id }}" class="btn btn-sm btn-info"

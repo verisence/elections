@@ -41,7 +41,7 @@
                             <tr>
                                 <td>{{ $message->title }}</td>
                                 <td>
-                                    {{ $message->created_at }}
+                                    {{ date('M j, Y g:i a', strtotime($message->created_at.'+3 hour')) }}
                                 </td>
                                 <td>
                                     <a href="/messages/{{ $message->id }}" class="btn btn-sm btn-success"

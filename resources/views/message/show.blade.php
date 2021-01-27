@@ -16,6 +16,10 @@
                 {{ $message->message }}
             </p>
 
+            <p class="card-text text-muted">
+                Date - {{ date('M j, Y g:i a', strtotime($message->created_at.'+3 hour')) }}
+            </p>
+
             <a href="/message/{{ $message->id }}/edit" class="btn btn-primary" role="button" data-toggle="modal" data-target="#modal-edit">Edit</a>
             <a href="/message/{{ $message->id }}/delete" class="btn btn-danger float-right" role="button" data-toggle="modal" data-target="#modal-delete">Delete</a>
         </div>

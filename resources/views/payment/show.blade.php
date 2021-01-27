@@ -24,7 +24,7 @@
             </p>
 
             <p class="card-text">
-                Paid on: {{ $payment->created_at }}
+                Paid on: {{ date('M j, Y g:i a', strtotime($payment->created_at.'+3 hour')) }}
             </p>
         </div>
         <div class="card-footer">
