@@ -31,7 +31,6 @@ class StreamsController extends Controller
     {
         $stations = Station::orderBy('created_at','asc')->get();
         return view('stream.create', compact(['stations']));
-        // return json_encode($stationNames[0]);
     }
 
     /**
@@ -53,10 +52,12 @@ class StreamsController extends Controller
         $stream->name = $request->input('name');
         $stream->votes = 0;
         $stream->pending = false;
-        $stream->station_id = 2;
+        $stream->station_id = implode(",", $request->input('station'));
 
         // Save stream
         $stream->save();
+
+
 
         // Redirect
         return redirect('/streams')->with('success', 'Stream Saved');
@@ -106,7 +107,7 @@ class StreamsController extends Controller
         // Edit stream
         $stream = Stream::find($id);
         $stream->name = $request->input('name');
-        $stream->station_id = 1;
+        $stream->station_id = implode(",", $request->input('station'));
 
         // Save updates
         $stream->save();

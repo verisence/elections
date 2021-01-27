@@ -24,6 +24,13 @@
         {!! Form::text('phone',null, ['class' => 'form-control', 'placeholder'=>"Phone"]); !!}
         {!!Form::label('email', 'Email');!!}
         {!! Form::text('email',null, ['class' => 'form-control', 'placeholder'=>"Email"]); !!}
+        {!!Form::label('stream', 'Stream');!!}
+        <select name="stream[]" id="stream" class="form-control">
+            <option value="" disabled selected>Select a polling station stream...</option>
+            @foreach ($streams as $stream)
+              <option value="{{$stream->id}}">{{$stream->name}}</option>
+            @endforeach
+        </select>
         </div>
         <!-- /.card-body -->
 

@@ -50,15 +50,13 @@
                 'POST']) !!}
                 {!! csrf_field() !!}
                 <div class="modal-body">
-
-                    <input type="text" value="{{ $payment['name'] }}" class="form-control" name="name">
+                    <input type="text" value="{{ $payment['amount'] }}" class="form-control" name="amount">
                     <br>
-                    <input type="text" value="{{ $payment['id_number'] }}" class="form-control" name="id_number">
-                    <br>
-                    <input type="text" value="{{ $payment['phone_number'] }}" class="form-control" name="phone_number">
-                    <br>
-                    <input type="text" value="{{ $payment['email'] }}" class="form-control" name="email">
-                    <br>
+                    <select name="agent[]" id="agent" class="form-control">
+                        @foreach ($agents as $agent)
+                          <option value="{{$agent->id}}" {{$agent->id==$payment->agent_id ? 'selected' : ''}}>{{$agent->name}}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

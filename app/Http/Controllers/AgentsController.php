@@ -56,7 +56,8 @@ class AgentsController extends Controller
         $agent->id_number = $request->input('id_number');
         $agent->phone_number = $request->input('phone');
         $agent->email = $request->input('email');
-        $agent->stream_id = 2;
+        $agent->votes = 0;
+        $agent->stream_id = implode(",", $request->input('stream'));
 
         // Save agent
         $agent->save();
@@ -74,10 +75,11 @@ class AgentsController extends Controller
     public function show($id)
     {
         $agent = Agent::find($id);
+        $streams = Stream::orderBy('created_at','desc')->get();
         $payments = Payment::orderBy('created_at','desc')->get()->where('agent_id', $id);
         $stream = Stream::orderBy('created_at','desc')->get()->where('id', $agent->stream_id)->values()[0];
         $station = Station::orderBy('created_at','desc')->get()->where('id', $stream->station_id)->values()[0];
-        return view('agent.show', compact(['agent', 'payments', 'station', 'stream']));
+        return view('agent.show', compact(['agent', 'payments', 'station', 'stream', 'streams']));
         // return json_encode($station);
     }
 
@@ -115,13 +117,13 @@ class AgentsController extends Controller
         $agent->id_number = $request->input('id_number');
         $agent->phone_number = $request->input('phone_number');
         $agent->email = $request->input('email');
-        $agent->stream_id = 2;
+        $agent->stream_id = implode(",", $request->input('stream'));
 
         // Save updates
         $agent->save();
 
         // Redirect
-        return redirect('/agents')->with('success', 'Agent Details Updated');
+        return redirect('/agents/'.$id)->with('success', 'Agent Details Updated');
     }
 
     /**
@@ -147,20 +149,63 @@ class AgentsController extends Controller
         $stream = Stream::orderBy('created_at','desc')->get()->where('id', $agent->stream_id)->values()[0];
         // get station
         $station = Station::orderBy('created_at','desc')->get()->where('id', $stream->station_id)->values()[0];
+        // get all streams in a station
+        $streams = Stream::orderBy('created_at', 'desc')->get()->where('station_id', $stream->station_id)->values();
+        // get all agents in a stream
+        $agents = Agent::orderBy('created_at', 'desc')->get()->where('stream_id', $agent->stream_id)->values();
+
+
         // update agent's votes
         $agent->votes = $request->input('votes');
         $agent->save();
         $agentVotes = $agent->votes;
         // update stream's votes
         $streamVotes = $stream->votes;
-        $streamVotes += $agentVotes;
-        $stream->votes = $streamVotes;
+        // $streamVotes += $agentVotes;
+        // $stream->votes = $streamVotes;
+
+
+        // if (count($agents)>1) {
+        //     return 123;
+        // }
+
+        if ($streamVotes==0) {
+            $streamVotes += $agentVotes;
+            $stream->votes = $streamVotes;
+        } else {
+            if ($streamVotes==$agentVotes) {
+                // $streamVotes = 0;
+                $streamVotes+=$agentVotes;
+                $stream->votes = $streamVotes;
+                $stream->pending = 0;
+                $station->pending = 0;
+            } else {
+                // $streamVotes=$streamVotes;
+                $stream->votes = $streamVotes;
+                $stream->pending = 1;
+                $station->pending = 1;
+            }
+
+        }
+
         $stream->save();
-        // return json_encode($streamVotes);
-        $stationVotes = $station->votes;
-        $stationVotes += $streamVotes;
+
+        // $stationVotes = $station->votes;
+
+        // for ($i=0; $i < count($streams); $i++) {
+        //     $stationVotes += $streams[$i]->votes;
+        // }
+
+        // $stationVotes = 0;
+        foreach ($streams as $stream) {
+            $stationVotes = 0;
+            $stationVotes+=$stream->votes;
+        }
+
+        // $stationVotes += $streamVotes;
         $station->votes = $stationVotes;
         $station->save();
+        // return json_encode($streams);
         return redirect('/agents/'.$id)->with('success', 'Votes Updated');
     }
 

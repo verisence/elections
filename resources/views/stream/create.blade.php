@@ -18,7 +18,8 @@
         {!!Form::label('name', 'Name');!!}
         {!! Form::text('name',null, ['class' => 'form-control', 'placeholder'=>"Name"]); !!}
         {!!Form::label('location', 'Location');!!}
-        <select name="station[]" class="form-control">
+        <select name="station[]" id="station" class="form-control">
+            <option value="" disabled selected>Select a polling station...</option>
             @foreach ($stations as $station)
               <option value="{{$station->id}}">{{$station->name}}</option>
             @endforeach

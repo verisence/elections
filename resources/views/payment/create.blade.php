@@ -18,7 +18,8 @@
         {!!Form::label('amount', 'Amount');!!}
         {!! Form::text('amount',null, ['class' => 'form-control', 'placeholder'=>"Amount"]); !!}
         {!!Form::label('agents[]', 'Agent');!!}
-        <select name="agents[]" class="form-control">
+        <select name="agent[]" id="agent" class="form-control">
+            <option value="" disabled selected>Select an agent ...</option>
             @foreach ($agents as $agent)
               <option value="{{$agent->id}}">{{$agent->name}}</option>
             @endforeach

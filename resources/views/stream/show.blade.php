@@ -98,9 +98,10 @@
 
                     <input type="text" value="{{ $stream['name'] }}" class="form-control" name="name">
                     <br>
-                    <select name="station[]" class="form-control">
+                    <select name="station[]" id="station" class="form-control">
+                        {{-- <option value="" disabled selected>Select a polling station...</option> --}}
                         @foreach ($stations as $station)
-                            <option value="{{ $station->id }}">{{ $station->name }}</option>
+                          <option value="{{$station->id}}" {{$station->id == $stream->station_id ? 'selected' : ''}}>{{$station->name}}</option>
                         @endforeach
                     </select>
                 </div>

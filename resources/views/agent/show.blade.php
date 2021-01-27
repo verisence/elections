@@ -17,6 +17,15 @@
         <div class="card-body">
 
             <p class="card-text">
+                Email address: {{ $agent->email }}
+            </p>
+            <p class="card-text">
+                Phone number: {{ $agent->phone_number }}
+            </p>
+            <p class="card-text">
+                ID number: {{ $agent->id_number }}
+            </p>
+            <p class="card-text">
                 Polling Station: {{ $station->name }}
             </p>
             <p class="card-text">
@@ -104,8 +113,12 @@
                     <br>
                     <input type="text" value="{{ $agent['email'] }}" class="form-control" name="email">
                     <br>
-                    {{-- <textarea class="text"
-                        name="id_number">{{ $agent['id_number'] }}</textarea> --}}
+                    <select name="stream[]" id="stream" class="form-control">
+                        {{-- <option value="" disabled selected>Select a polling station stream...</option> --}}
+                        @foreach ($streams as $stream)
+                          <option value="{{$stream->id}}" {{$stream->id == $agent->stream_id ? 'selected' : ''}}>{{$stream->name}}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -49,7 +49,7 @@ class PaymentsController extends Controller
         // Create payment
         $payment = new Payment;
         $payment->amount = $request->input('amount');
-        $payment->agent_id = 1;
+        $payment->agent_id = implode(",", $request->input('agent'));
 
         // Save payment
         $payment->save();
@@ -67,9 +67,10 @@ class PaymentsController extends Controller
     public function show($id)
     {
         $payment = Payment::find($id);
+        $agents = Agent::orderBy('created_at','desc')->get();
         $agentSort = Agent::orderBy('created_at','desc')->get()->where('id', $payment->agent_id)->values();
         $agent = $agentSort[0];
-        return view('payment.show', compact(['payment', 'agent']));
+        return view('payment.show', compact(['payment', 'agent', 'agents']));
         // return json_encode($agent);
     }
 
@@ -101,13 +102,13 @@ class PaymentsController extends Controller
         // Edit payment
         $payment = Payment::find($id);
         $payment->amount = $request->input('amount');
-        $payment->agent_id = 1;
+        $payment->agent_id = implode(",", $request->input('agent'));
 
         // Save updates
         $payment->save();
 
         // Redirect
-        return redirect('/payments')->with('success', 'Payment Updated');
+        return redirect('/payments/'.$id)->with('success', 'Payment Updated');
 
     }
 
