@@ -31,6 +31,7 @@ Route::resource('streams', StreamsController::class);
 
 // AGENTS
 Route::resource('agents', AgentsController::class);
+Route::post('agents/{key}/vote', 'App\Http\Controllers\AgentsController@vote')->name('agents_vote');
 
 // PAYMENTS
 Route::resource('payments', PaymentsController::class);

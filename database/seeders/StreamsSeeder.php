@@ -17,12 +17,12 @@ class StreamsSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        foreach (range(1,30) as $index) {
+        foreach (range(1,10) as $index) {
             DB::table('streams')->insert([
                 'name'=> $faker->company,
                 'votes'=>$faker->numberBetween(0,0),
                 'pending'=>$faker->numberBetween(0,0),
-                'station_id'=>$faker->numberBetween(1,15),
+                'station_id'=>$faker->numberBetween(1,5),
                 'created_at'=>$faker->dateTimeThisMonth(),
                 'updated_at'=>$faker->dateTimeThisMonth(),
             ]);

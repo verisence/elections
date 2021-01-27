@@ -16,7 +16,7 @@ class MessagesSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        foreach (range(1,200) as $index) {
+        foreach (range(1,5) as $index) {
             DB::table('messages')->insert([
                 'title'=> $faker->sentence(3),
                 'message'=>$faker->paragraph(10),

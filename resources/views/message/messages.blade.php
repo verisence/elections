@@ -15,7 +15,6 @@
     <br>
     {!! Form::submit('Send', ['class' => 'btn btn-primary']) !!}
     {!! Form::close() !!}
-
     <br>
     {{-- <h3>All Messages</h3> --}}
 

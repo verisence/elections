@@ -16,7 +16,7 @@ class VotersSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        foreach (range(1,200) as $index) {
+        foreach (range(1,20) as $index) {
             DB::table('voters')->insert([
                 'name'=> $faker->name,
                 'id_number'=>$faker->numberBetween(9999999,39999999),

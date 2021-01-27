@@ -137,4 +137,31 @@ class AgentsController extends Controller
 
         return redirect('/agents')->with('success', 'Agent Deleted');
     }
+
+    // Update Votes
+    public function vote(Request $request,$id)
+    {
+        // get agent
+        $agent = Agent::find($id);
+        // get stream
+        $stream = Stream::orderBy('created_at','desc')->get()->where('id', $agent->stream_id)->values()[0];
+        // get station
+        $station = Station::orderBy('created_at','desc')->get()->where('id', $stream->station_id)->values()[0];
+        // update agent's votes
+        $agent->votes = $request->input('votes');
+        $agent->save();
+        $agentVotes = $agent->votes;
+        // update stream's votes
+        $streamVotes = $stream->votes;
+        $streamVotes += $agentVotes;
+        $stream->votes = $streamVotes;
+        $stream->save();
+        // return json_encode($streamVotes);
+        $stationVotes = $station->votes;
+        $stationVotes += $streamVotes;
+        $station->votes = $stationVotes;
+        $station->save();
+        return redirect('/agents/'.$id)->with('success', 'Votes Updated');
+    }
+
 }

@@ -26,6 +26,14 @@
                 Votes: {{ $agent->votes }}
             </p>
 
+            {!! Form::open(['action' => ['App\Http\Controllers\AgentsController@vote', $agent->id], 'method' => 'POST']) !!}
+            {!! Form::label('votes', 'Update votes') !!}
+            {!! Form::text('votes', null, ['class' => 'form-control']) !!}
+            <br>
+            {!! Form::submit('Send', ['class' => 'btn btn-primary']) !!}
+            {!! Form::close() !!}
+            <br>
+
             <table class="table">
                 <thead>
                     <tr>
