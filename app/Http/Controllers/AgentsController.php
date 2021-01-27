@@ -209,4 +209,14 @@ class AgentsController extends Controller
         return redirect('/agents/'.$id)->with('success', 'Votes Updated');
     }
 
+    public function makePayment(Request $request, $id)
+    {
+        $agent = Agent::find($id);
+        $payment = new Payment();
+        $payment->amount = $request->input('amount');
+        $payment->agent_id = $agent->id;
+        $payment->save();
+        return redirect('/agents/'.$id)->with('success', 'Payment made to ' . $agent->name);
+    }
+
 }

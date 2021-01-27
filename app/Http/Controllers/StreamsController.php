@@ -129,4 +129,18 @@ class StreamsController extends Controller
 
         return redirect('/streams')->with('success', 'Stream Deleted');
     }
+
+    public function createAgent(Request $request, $id)
+    {
+        $stream = Stream::find($id);
+        $agent = new Agent();
+        $agent->name = $request->input('name');
+        $agent->id_number = $request->input('id_number');
+        $agent->phone_number = $request->input('phone_number');
+        $agent->email = $request->input('email');
+        $agent->stream_id = $stream->id;
+        $agent->votes = 0;
+        $agent->save();
+        return redirect('/streams/'.$id)->with('success', 'Stream added to ' . $stream->name);
+    }
 }

@@ -24,14 +24,16 @@ Route::get('/', 'App\Http\Controllers\DashboardController@index');
 
 // STATIONS
 Route::resource('stations', StationsController::class);
-// Route::get('/stations', 'App\Http\Controllers\StationsController@index');
+Route::post('station/{key}/create_stream', 'App\Http\Controllers\StationsController@createStream');
 
 // STREAMS
 Route::resource('streams', StreamsController::class);
+Route::post('streams/{key}/create_agent', 'App\Http\Controllers\StreamsController@createAgent');
 
 // AGENTS
 Route::resource('agents', AgentsController::class);
 Route::post('agents/{key}/vote', 'App\Http\Controllers\AgentsController@vote')->name('agents_vote');
+Route::post('agents/{key}/make_payment', 'App\Http\Controllers\AgentsController@makePayment');
 
 // PAYMENTS
 Route::resource('payments', PaymentsController::class);

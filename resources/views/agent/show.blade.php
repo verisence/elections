@@ -64,17 +64,27 @@
                                 </td>
                             </tr>
                         @endforeach
+                        <tr>
+                            <td>
+                                <a href="" class="btn btn-sm btn-info" role="button" data-toggle="modal" data-target="#modal-create">Make Payment</a>
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
                     @else
                         <tr>
                             <td>
                                 This agent has received no payments
                             </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
                             <td>
-
+                                <a href="" class="btn btn-sm btn-info" role="button" data-toggle="modal" data-target="#modal-create">Make Payment</a>
                             </td>
-                            <td>
-
-                            </td>
+                            <td></td>
+                            <td></td>
                         </tr>
                     @endif
 
@@ -126,6 +136,37 @@
                     {!! Form::submit('Submit', ['class' => 'btn btn-info']) !!}
                 </div>
                 {!! Form::close() !!}
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="modal-create">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Make a payment to {{$agent->name}}</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                {!! Form::open(['action' => ['App\Http\Controllers\AgentsController@makePayment', $agent->id], 'method' =>
+                'POST']) !!}
+                <div class="modal-body">
+                    <input type="text" placeholder="Amount" class="form-control" name="amount">
+                    <br>
+                    <select disabled name="agent[]" id="agent" class="form-control">
+                        <option value="{{$agent->id}}" disabled selected>{{$agent->name}}</option>
+                    </select>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    {!! Form::submit('Save', ['class' => 'btn btn-info']) !!}
+                </div>
+                {!! Form::close() !!}
+
             </div>
             <!-- /.modal-content -->
         </div>

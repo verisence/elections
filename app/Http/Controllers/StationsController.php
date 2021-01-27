@@ -129,4 +129,16 @@ class StationsController extends Controller
 
         return redirect('/stations')->with('success', 'Station Deleted');
     }
+
+    public function createStream(Request $request, $id)
+    {
+        $station = Station::find($id);
+        $stream = new Stream();
+        $stream->name = $request->input('name');
+        $stream->station_id = $station->id;
+        $stream->votes = 0;
+        $stream->pending = 0;
+        $stream->save();
+        return redirect('/stations/'.$id)->with('success', 'Stream added to ' . $station->name);
+    }
 }
